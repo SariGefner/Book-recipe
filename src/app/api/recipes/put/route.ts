@@ -7,7 +7,7 @@ export async function PUT(req) {
   try {
     const { recipeId, image, name, categoryName, ingredients, favorite } = await req.json();
 
-    // וידוא שכל השדות הנדרשים קיימים
+  
     if (!recipeId || !image || !name || !categoryName || !ingredients || !favorite) {
       return NextResponse.json(
         { error: 'Missing required fields' },
@@ -17,8 +17,7 @@ export async function PUT(req) {
 
     await connectDb();
 
-    // חיפוש המתכון לפי ה-ID
-    const recipeToUpdate = await Recipe.findById(recipeId);
+    const recipeToUpdate = await Recipe.findById({name:name});
     if (!recipeToUpdate) {
       return NextResponse.json(
         { error: 'Recipe not found' },
@@ -26,17 +25,16 @@ export async function PUT(req) {
       );
     }
 
-    // עדכון המתכון
+  
     recipeToUpdate.image = image;
     recipeToUpdate.name = name;
     recipeToUpdate.categoryName = categoryName;
     recipeToUpdate.ingredients = ingredients;
     recipeToUpdate.favorite = favorite;
 
-    // שמירה של המתכון המעודכן
+    
     const updatedRecipe = await recipeToUpdate.save();
 
-    // עדכון הקטגוריה על פי השם
     await Category.findOneAndUpdate(
       { categoryName: categoryName },
       { $push: { recipes: updatedRecipe._id } },
