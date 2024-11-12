@@ -10,7 +10,7 @@ const recipeSchema = new Schema<IRecipe>({
   name: {
     type: String, required: true, unique: true
   },
-  category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
+  categoryName: { type: String, ref: 'Category', required: true },
   ingredients: { type: [String], required: true },
   favorite: { type: Boolean, default: false }
 });

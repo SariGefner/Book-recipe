@@ -1,9 +1,9 @@
 
-import { Document, Types } from 'mongoose';
+import { Document } from 'mongoose';
   export interface IRecipe extends Document {
     image: string;
     name: string;
-    category: Types.ObjectId;
+    categoryName: string;
     ingredients: string[];
     favorite: boolean;
   }

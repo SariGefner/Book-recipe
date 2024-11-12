@@ -3,7 +3,7 @@ import mongoose from 'mongoose';
 
 const connectDb = async (): Promise<void> => {
    try{
-    const MONGO_URI = "https://book-recipe-hazel.vercel.app/";
+    const MONGO_URI = process.env.MONGODB_URI;
     if (!MONGO_URI) {
       throw new Error('Missing MONGO_URI in environment variables');
     }
