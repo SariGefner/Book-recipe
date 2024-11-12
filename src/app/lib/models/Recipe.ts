@@ -1,17 +1,15 @@
-import mongoose, { Schema, Document, model, models, Types } from 'mongoose';
+import { Schema, model, models } from 'mongoose';
 
-export interface IRecipe extends Document {
-  image: string;
-  name: string;
-  category: Types.ObjectId;
-  ingredients: string[];
-  favorite: boolean;
-}
+import { IRecipe } from "@/app/types/recipes"
+
+
 
 
 const recipeSchema = new Schema<IRecipe>({
   image: { type: String, required: true },
-  name: { type: String, required: true },
+  name: {
+    type: String, required: true, unique: true
+  },
   category: { type: Schema.Types.ObjectId, ref: 'Category', required: true },
   ingredients: { type: [String], required: true },
   favorite: { type: Boolean, default: false }
