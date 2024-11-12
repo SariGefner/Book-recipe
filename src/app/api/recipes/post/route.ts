@@ -7,7 +7,6 @@ export async function POST(req) {
   try {
     const { image, name, categoryName, ingredients, favorite } = await req.json();
 
-    // וידוא שכל השדות הדרושים קיימים
     if (!image || !name || !categoryName || !ingredients || favorite === undefined) {
       return NextResponse.json(
         { error: 'Missing required fields' },
