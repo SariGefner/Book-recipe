@@ -1,12 +1,6 @@
-import mongoose, { Schema, Document, model, models, Types } from 'mongoose';
-import { IRecipe } from './Recipe';
+import  { Schema, model, models } from 'mongoose';
 
-
-export interface ICategory extends Document {
-
-  name: string;
-  recipes: Types.ObjectId[]; 
-}
+import { ICategory } from "@/app/types/category"
 
 
 const categorySchema = new Schema<ICategory>({
