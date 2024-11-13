@@ -1,5 +1,11 @@
-const Favorites = () => {
-    return <div>Favorites Page</div>;
-  };
-  
-  export default Favorites;
+import React from 'react'
+
+const page = () => {
+  return (
+    <div>
+      fav
+    </div>
+  )
+}
+
+export default page

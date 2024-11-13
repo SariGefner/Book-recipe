@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
 import { usePathname } from 'next/navigation'; 
@@ -11,14 +11,14 @@ const NavBar = () => {
   useEffect(() => {
     if (pathname === '/favorites') {
       setActiveTab('Favorites');
-    } else if (pathname === '/homepage') {
+    } else if (pathname === '/recipes') {
       setActiveTab('All Recipes');
     }
   }, [pathname]); 
 
   return (
     <div className="flex border-b border-gray-300">
-      <Link href="/all-recipes">
+      <Link href="recipes">
         <div
           className={`px-4 py-2 ${
             activeTab === 'All Recipes'
@@ -30,7 +30,7 @@ const NavBar = () => {
           All Recipes
         </div>
       </Link>
-      <Link href="/favorites">
+      <Link href="favorites">
         <div
           className={`px-4 py-2 ${
             activeTab === 'Favorites'
