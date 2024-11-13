@@ -38,7 +38,7 @@ const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, f
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-4 relative">
       <div className="relative h-48 w-full">
-        <Image src={image} alt={name} layout="fill" objectFit="cover" className="rounded-t-lg" />
+        {/* <Image src={image} alt={name} layout="fill" objectFit="cover" className="rounded-t-lg" /> */}
       </div>
       <div className="px-6 py-4">
         {/* Wrapper for name and favorite button */}

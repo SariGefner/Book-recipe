@@ -8,7 +8,7 @@ const BASE_URL = 'http://localhost:3000/api';
 export async function fetchAllRecipes(): Promise<IRecipe[]> {
   try {
     const response = await axios.get(`${BASE_URL}/recipes/get/`);
-    console.log('API Response:', response.data); // Log response data
+    console.log('API Response:', response.data); 
     return response.data.recipes;
   } catch (error) {
     console.error('Error fetching all recipes:', error);

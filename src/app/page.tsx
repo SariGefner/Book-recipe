@@ -1,6 +1,6 @@
 import React from 'react';
 // import ExamplePage from './pages/homepage/page';
-import AllRecipes from './pages/all recipes/page';
+import AllRecipes from './pages/recipes/page';
 
 const Homepage = () => {
     return (
