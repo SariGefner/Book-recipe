@@ -1,9 +1,9 @@
 import React from 'react'
-
+import CardsList from "@/app/components/cardsList";
 const page = () => {
   return (
     <div>
-      fav
+     <CardsList favorite={true}/>
     </div>
   )
 }
