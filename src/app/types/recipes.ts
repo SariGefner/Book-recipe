@@ -6,4 +6,5 @@ import { Document } from 'mongoose';
     categoryName: string;
     ingredients: string[];
     favorite: boolean;
+   
   }

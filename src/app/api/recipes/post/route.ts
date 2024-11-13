@@ -1,15 +1,14 @@
 
 import { NextRequest, NextResponse } from 'next/server';
 import connectDb from '@/app/lib/db/connectDb'; 
-import {Recipe} from '@/app/lib/models/Recipe';
-import {Category} from '@/app/lib/models/Category';
-
+import { Recipe } from '@/app/lib/models/Recipe';
+import { Category } from '@/app/lib/models/Category';
 
 export async function POST(req : NextRequest) {
   try {
-    const { image,name, categoryName, ingredients, favorite } = await req.json();
-
-    if (!image||!name || !categoryName || !ingredients || !favorite) {
+    const { image, name, categoryName, ingredients, favorite } = await req.json();
+    
+    if (!image || !name || !categoryName || !ingredients || !favorite) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -18,17 +17,30 @@ export async function POST(req : NextRequest) {
 
     await connectDb();
 
-  
-    const newRecipe = new Recipe({ image,name, categoryName, ingredients, favorite });
-    await newRecipe.save();
 
+    let category = await Category.findOne({ categoryName: categoryName });
 
+    if (!category) {
+      category = new Category({ categoryName: categoryName, recipes: [] });
+      await category.save(); 
+    }
+
+    const newRecipe = new Recipe({
+      image,
+      name,
+      categoryName,  
+      ingredients,
+      favorite,
+    });
+
+    await newRecipe.save();  
 
     await Category.findOneAndUpdate(
-      { categoryName: categoryName },
-      { $push: { recipes: newRecipe._id} },
+      { _id: category._id },
+      { $push: { recipes: newRecipe._id } },
       { new: true }
     );
+
     return NextResponse.json(
       { message: 'Recipe created successfully', recipe: newRecipe },
       { status: 201 }
