@@ -40,8 +40,6 @@ const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, f
             {isFavorite ? '💗' : '💗'}
           </button>
         </div>
-        {/* <div className="px-6 py-4"> */}
-        <h2 className="font-bold text-xl mb-2">{name}</h2>
         <p className="text-gray-600 mb-2">{categoryName}</p>
         <p className="text-gray-700 text-sm mb-2">Ingredients: {ingredients.join(', ')}</p>
         <p className="text-gray-700 text-sm mb-2">
@@ -53,12 +51,6 @@ const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, f
         >
           Read More
         </button>
-        {/* <button
-          onClick={handleFavoriteToggle}
-          className={`bg-blue-500 text-white px-3 py-1 rounded ${isFavorite ? 'bg-red-500' : 'bg-blue-500'}`}
-        >
-          {isFavorite ? '💗' : '💗'}
-        </button> */}
       </div>
 
       {/* Popup for detailed instructions */}

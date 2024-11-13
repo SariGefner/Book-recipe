@@ -26,7 +26,7 @@ export async function GET(req: Request, { params }: { params: { categoryName: st
       console.error('Error fetching user and recipes by categoryName:', error);
   
       return NextResponse.json(
-        { error: 'Failed to fetch  recipes', details: error.message },
+        { error: 'Failed to fetch  recipes', details: error },
         { status: 500 }
       );
     }

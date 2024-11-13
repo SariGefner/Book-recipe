@@ -11,6 +11,7 @@ const recipeSchema = new Schema<IRecipe>({
     type: String, required: true, unique: true
   },
   categoryName: { type: String, ref: 'Category', required: true },
+
   ingredients: { type: [String], required: true },
   favorite: { type: Boolean, default: false }
 });

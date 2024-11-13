@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDb from '@/app/lib/db/connectDb'; 
 import { Recipe } from '@/app/lib/models/Recipe';
 
-export async function GET(req) {
+export async function GET() {
   try {
    
     await connectDb();
@@ -23,7 +23,7 @@ export async function GET(req) {
   } catch (error) {
     console.error('Error fetching recipes:', error);
     return NextResponse.json(
-      { error: 'Failed to fetch recipes', details: error.message },
+      { error: 'Failed to fetch recipes', details: error },
       { status: 500 }
     );
   }

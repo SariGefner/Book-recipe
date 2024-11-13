@@ -6,8 +6,8 @@ import { Category } from '@/app/lib/models/Category';
 export async function POST(req) {
   try {
     const { image, name, categoryName, ingredients, favorite } = await req.json();
-
-    if (!image || !name || !categoryName || !ingredients || favorite === undefined) {
+    
+    if (!image || !name || !categoryName || !ingredients || !favorite) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -17,17 +17,17 @@ export async function POST(req) {
     await connectDb();
 
 
-    let category = await Category.findOne({ name: categoryName });
+    let category = await Category.findOne({ categoryName: categoryName });
 
     if (!category) {
-      category = new Category({ name: categoryName, recipes: [] });
+      category = new Category({ categoryName: categoryName, recipes: [] });
       await category.save(); 
     }
 
     const newRecipe = new Recipe({
       image,
       name,
-      category: category._id,  
+      categoryName,  
       ingredients,
       favorite,
     });
