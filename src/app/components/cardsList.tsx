@@ -1,24 +1,3 @@
-// import React from 'react';
-// // import { IRecipeData } from '../types/recipes';
-// import Card from './card';
-// import { fetchAllRecipes } from '../services/recipes';
-
-// // interface RecipesTableProps {
-// //     recipes: IRecipeData[];
-// // }
-
-// const CardsList = () => {
-//     const recipes = fetchAllRecipes()
-//     return (
-//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-//             {recipes.map((recipe) => (
-//                 <Card key={recipe._id.toString()} {...recipe} />
-//             ))}
-//         </div>
-//     );
-// };
-
-// export default CardsList;
 'use client'
 import React, { useEffect, useState } from 'react';
 import { IRecipeData } from '../types/recipes';
