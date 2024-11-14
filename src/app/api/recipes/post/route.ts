@@ -5,6 +5,7 @@ import { Category } from '@/app/lib/models/Category';
 
 export async function POST(req) {
   try {
+    
     const { image, name, categoryName, ingredients, favorite,preparationInstructions } = await req.json();
     
     if (!image || !name || !categoryName || !ingredients || !favorite||!preparationInstructions) {

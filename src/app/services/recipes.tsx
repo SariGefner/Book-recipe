@@ -16,6 +16,8 @@ export async function fetchAllRecipes(): Promise<IRecipe[]> {
   }
 }
 
+
+
 export async function fetchRecipesByCategory(categoryName: string): Promise<IRecipe[]> {
   try {
     const response = await axios.get(`${BASE_URL}/category/get/${categoryName}`);

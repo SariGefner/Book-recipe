@@ -6,6 +6,7 @@ import { fetchAllRecipes } from '../services/recipes';
 
 interface CardsListProps {
   favorite?: boolean;
+  
 }
 
 const CardsList: React.FC<CardsListProps> = ({ favorite = false }) => {

@@ -9,6 +9,7 @@ const RecipeDetails: React.FC<RecipeProps> = ({ image, name, categoryName, ingre
     return (
         <div>
             <div className="relative h-48 w-full">
+                
                 {/* <Image src={image} alt={name} layout="fill" objectFit="cover" className="rounded-t-lg" /> */}
             </div>
             <div className="px-6 py-4">

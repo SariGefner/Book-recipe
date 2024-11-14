@@ -8,4 +8,5 @@ export interface IRecipe extends Document {
   ingredients: string[];
   favorite: boolean;
   preparationInstructions: string;
+  
 }
