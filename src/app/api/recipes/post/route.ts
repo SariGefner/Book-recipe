@@ -6,9 +6,10 @@ import { Category } from '@/app/lib/models/Category';
 
 export async function POST(req : NextRequest) {
   try {
-    const { image, name, categoryName, ingredients, favorite } = await req.json();
     
-    if (!image || !name || !categoryName || !ingredients || !favorite) {
+    const { image, name, categoryName, ingredients, favorite,preparationInstructions } = await req.json();
+    
+    if (!image || !name || !categoryName || !ingredients || !favorite||!preparationInstructions) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -31,6 +32,7 @@ export async function POST(req : NextRequest) {
       categoryName,  
       ingredients,
       favorite,
+      preparationInstructions
     });
 
     await newRecipe.save();  
