@@ -1,31 +1,27 @@
 
 'use client'
-import Image from 'next/image';
-import { IRecipeData } from '../types/recipes';
+
+import { IRecipe } from '../types/recipes';
 import { useState } from 'react';
 import RecipeDetails from './recipeDetails';
 import { updateRecipe } from '../services/recipes';
 
 
-type RecipeProps = Pick<IRecipeData, 'image' | 'name' | 'categoryName' | 'ingredients' | 'favorite' | 'preparationInstructions'>;
+type RecipeProps = Pick<IRecipe, 'image' | 'name' | 'categoryName' | 'ingredients' | 'favorite' | 'preparationInstructions'>;
 
 const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, favorite, preparationInstructions }) => {
   const [isFavorite, setIsFavorite] = useState(favorite);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-  // const handleFavoriteToggle = async (name: string) => {
-  //   await updateRecipe(name, isFavorite)
-  //   setIsFavorite(!isFavorite);
-  // };
+  
   const handleFavoriteToggle = async () => {
     try {
-      await updateRecipe(name, !isFavorite); // Pass the new favorite state to the update function
-      setIsFavorite((prev) => !prev); // Toggle the state after the update completes
+      await updateRecipe(name, !isFavorite); 
+      setIsFavorite((prev) => !prev); 
     } catch (error) {
       console.error("Failed to update favorite status:", error);
     }
   };
-  
+
 
   const handleReadMore = () => {
     setIsPopupOpen(true);
@@ -41,12 +37,14 @@ const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, f
         {/* <Image src={image} alt={name} layout="fill" objectFit="cover" className="rounded-t-lg" /> */}
       </div>
       <div className="px-6 py-4">
-        {/* Wrapper for name and favorite button */}
+    
         <div className="flex justify-between items-center mb-2">
           <h2 className="font-bold text-xl">{name}</h2>
-          <button className="px-3 py-1"
-            onClick={() => { handleFavoriteToggle() }}>
-            <span className={`${isFavorite ? 'text-red-500' : 'text-blue-500'}`}>{isFavorite?'💟':'💟'}</span>
+          <button
+            onClick={handleFavoriteToggle}
+            className={`bg-blue-500 text-white px-3 py-1 rounded ${isFavorite ? 'bg-red-500' : 'bg-blue-500'}`}
+          >
+            {isFavorite ? '💗' : '💗'}
           </button>
         </div>
         <p className="text-gray-600 mb-2">{categoryName}</p>
@@ -66,7 +64,7 @@ const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, f
       {isPopupOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white p-6 rounded-lg max-w-md w-full">
-            <RecipeDetails {...{ image, name, categoryName, ingredients, favorite, preparationInstructions }} />
+            <RecipeDetails {...{ image, name, categoryName, ingredients, favorite: isFavorite, preparationInstructions }} />
             <button
               onClick={handleClosePopup}
               className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-700"
