@@ -3,14 +3,15 @@ import React, { useEffect, useState } from 'react';
 import { IRecipe } from '@/app/types/recipes';
 import Card from './card';
 import { fetchAllRecipes } from '../services/recipes';
-
+import Header from "@/app/components/header";
 interface CardsListProps {
   favorite?: boolean;
-  
+
 }
 
 const CardsList: React.FC<CardsListProps> = ({ favorite = false }) => {
   const [recipes, setRecipes] = useState<IRecipe[]>([]);
+  const[filterRecipes,setFilter]= useState<IRecipe[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
@@ -27,6 +28,8 @@ const CardsList: React.FC<CardsListProps> = ({ favorite = false }) => {
             ? fetchedRecipes.filter((recipe) => recipe.favorite)
             : fetchedRecipes;
           setRecipes(filteredRecipes);
+          setFilter(filteredRecipes);
+    
         } else {
           throw new Error('Fetched data is not an array');
         }
@@ -65,8 +68,9 @@ const CardsList: React.FC<CardsListProps> = ({ favorite = false }) => {
 
   return (
     <div>
+      <Header recipes={recipes} setRecipes={setFilter} />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {currentRecipes.map((recipe) => (
+        {filterRecipes.map((recipe) => (
           <Card key={recipe.name} {...recipe} />
         ))}
       </div>

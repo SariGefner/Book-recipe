@@ -18,7 +18,7 @@ const NavBar = () => {
 
   return (
     <div className="flex border-b border-gray-300">
-      <Link href="/recipes">
+      <Link href="recipes">
         <div
           className={`px-4 py-2 ${
             activeTab === 'All Recipes'
