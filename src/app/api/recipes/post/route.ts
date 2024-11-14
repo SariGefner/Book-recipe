@@ -29,7 +29,8 @@ export async function POST(req) {
       name,
       categoryName,  
       ingredients,
-      favorite,preparationInstructions
+      favorite,
+      preparationInstructions
     });
 
     await newRecipe.save();  
