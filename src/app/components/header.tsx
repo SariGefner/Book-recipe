@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { fetchAllRecipes } from '@/app/services/category';
 
+<<<<<<< HEAD
 interface HeaderProps {
   onSearch: (query: string) => void;
   onCategoryChange: (category: string) => void;
@@ -73,6 +74,21 @@ const Header: React.FC<HeaderProps> = ({ onSearch, onCategoryChange }) => {
             <circle cx="11" cy="11" r="8"/>
             <line x1="21" y1="21" x2="16.65" y2="16.65"/>
           </svg>
+=======
+    return(
+
+        <div>
+            <h1>Recipes</h1>
+            <br></br>
+            <label>pick a category</label>
+           <select>
+            <option>1</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+           </select>
+           <input type="search" id="search-input" name="search" placeholder="Search..." aria-label="Search"></input>
+>>>>>>> 934823082f20c81806a407b96fd007d3aa0bb471
         </div>
       </div>
 
