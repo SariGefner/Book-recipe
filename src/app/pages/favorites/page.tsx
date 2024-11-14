@@ -1,3 +1,4 @@
+
 import React from 'react'
 import CardsList from "@/app/components/cardsList";
 const page = () => {
@@ -9,3 +10,4 @@ const page = () => {
 }
 
 export default page
+

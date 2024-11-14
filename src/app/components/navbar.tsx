@@ -1,24 +1,24 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation'; 
+import { usePathname } from 'next/navigation'; // Correctly import usePathname from next/navigation
 import Link from 'next/link';
 
 const NavBar = () => {
   const [activeTab, setActiveTab] = useState<string>('All Recipes');
-  const pathname = usePathname(); 
+  const pathname = usePathname(); // Use usePathname for current path
 
   useEffect(() => {
     if (pathname === '/favorites') {
       setActiveTab('Favorites');
-    } else if (pathname === '/recipes') {
+    } else if (pathname === '/homepage') {
       setActiveTab('All Recipes');
     }
-  }, [pathname]); 
+  }, [pathname]); // Watch pathname for changes
 
   return (
     <div className="flex border-b border-gray-300">
-      <Link href="recipes">
+      <Link href="/recipes">
         <div
           className={`px-4 py-2 ${
             activeTab === 'All Recipes'
