@@ -54,7 +54,7 @@ export async function updateRecipe(name: string, favorite: boolean): Promise<IRe
   }
 }
 
-export async function addRecipe(recipeData: IRecipe): Promise<IRecipe> {
+export async function addRecipe(recipeData: Partial<IRecipe>): Promise<IRecipe> {
   try {
     const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData);
     return response.data;

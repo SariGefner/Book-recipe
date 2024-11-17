@@ -9,16 +9,16 @@ const NavBar = () => {
   const pathname = usePathname(); // Use usePathname for current path
 
   useEffect(() => {
-    if (pathname === '/pages/favorites') {
+    if (pathname === 'favorites') {
       setActiveTab('Favorites');
-    } else if (pathname === 'pages/homepage') {
+    } else if (pathname === 'homepage') {
       setActiveTab('All Recipes');
     }
   }, [pathname]); // Watch pathname for changes
 
   return (
     <div className="flex border-b border-gray-300">
-      <Link href="recipes">
+      <Link href="/pages/recipes">
         <div
           className={`px-4 py-2 ${
             activeTab === 'All Recipes'
@@ -30,7 +30,7 @@ const NavBar = () => {
           All Recipes
         </div>
       </Link>
-      <Link href="favorites">
+      <Link href="/pages/favorites">
         <div
           className={`px-4 py-2 ${
             activeTab === 'Favorites'

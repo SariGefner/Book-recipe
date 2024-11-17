@@ -9,7 +9,9 @@ export async function POST(req : NextRequest) {
     
     const { image, name, categoryName, ingredients, favorite,preparationInstructions } = await req.json();
     
-    if (!image || !name || !categoryName || !ingredients || !favorite||!preparationInstructions) {
+    if (!image || !name || !categoryName || !ingredients || favorite === undefined||!preparationInstructions) {
+      console.log("lllllllllllll",image, name, categoryName, ingredients, favorite,preparationInstructions);
+      
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }

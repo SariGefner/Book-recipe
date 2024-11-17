@@ -1,12 +1,10 @@
-
 import { useState, useEffect } from 'react';
 import { fetchAllCategory } from '@/app/services/category';
 
-const Header = ({ recipes, setRecipes }) => {
+const Header = ({ recipes, setRecipes, onAddRecipeClick }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [categories, setCategories] = useState([]);
     const [categoryFilter, setCategoryFilter] = useState("");
-
 
     useEffect(() => {
         const fetchData = async () => {
@@ -30,16 +28,17 @@ const Header = ({ recipes, setRecipes }) => {
             return matchesCategory && matchesSearch;
         });
         setRecipes(filtered)
-    }, [searchQuery, categoryFilter, recipes]); 
+    }, [searchQuery, categoryFilter, recipes]);
 
     const onCategoryChange = (e) => {
         const selectedCategory = e.target.value;
         setCategoryFilter(selectedCategory);
     };
+
     const onSearchChange = (e) => {
         setSearchQuery(e.target.value);
     };
-    
+
     return (
         <div className="w-full px-4 py-6">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
@@ -59,7 +58,6 @@ const Header = ({ recipes, setRecipes }) => {
                         ))}
                     </select>
 
-                    {/* Free search input */}
                     <input
                         type="text"
                         className="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-purple-500"
@@ -68,10 +66,16 @@ const Header = ({ recipes, setRecipes }) => {
                         onChange={onSearchChange}
                     />
                 </div>
+
+                {/* Add Recipe Button */}
+                <button
+                    onClick={onAddRecipeClick}
+                    className="bg-green-500 text-white px-4 py-2 rounded"
+                >
+                    Add Recipe
+                </button>
             </div>
-
         </div>
-
     );
 };
 
