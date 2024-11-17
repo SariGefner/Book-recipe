@@ -9,9 +9,9 @@ const NavBar = () => {
   const pathname = usePathname(); // Use usePathname for current path
 
   useEffect(() => {
-    if (pathname === '/favorites') {
+    if (pathname === '/pages/favorites') {
       setActiveTab('Favorites');
-    } else if (pathname === '/homepage') {
+    } else if (pathname === 'pages/homepage') {
       setActiveTab('All Recipes');
     }
   }, [pathname]); // Watch pathname for changes

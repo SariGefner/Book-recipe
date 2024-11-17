@@ -8,7 +8,7 @@ const BASE_URL = 'http://localhost:3000/api';
 export async function fetchAllRecipes(): Promise<IRecipe[]> {
   try {
     const response = await axios.get(`${BASE_URL}/recipes/get/`);
-    console.log('API Response:', response.data); 
+    console.log('API Response:', response.data);
     return response.data.recipes;
   } catch (error) {
     console.error('Error fetching all recipes:', error);
@@ -21,9 +21,21 @@ export async function fetchAllRecipes(): Promise<IRecipe[]> {
 export async function fetchRecipesByCategory(categoryName: string): Promise<IRecipe[]> {
   try {
     const response = await axios.get(`${BASE_URL}/category/get/${categoryName}`);
+    console.log(response.data);
+    
     return response.data;
   } catch (error) {
     console.error(`Error fetching recipes for category ${categoryName}:`, error);
+    throw error;
+  }
+}
+
+export async function fetchRecipesByName(recipeName: string): Promise<IRecipe[]> {
+  try {
+    const response = await axios.get(`${BASE_URL}/recipes/get/${recipeName}`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching recipes for category ${recipeName}:`, error);
     throw error;
   }
 }
@@ -42,7 +54,7 @@ export async function updateRecipe(name: string, favorite: boolean): Promise<IRe
   }
 }
 
-export async function addRecipe(recipeData:IRecipe): Promise<IRecipe> {
+export async function addRecipe(recipeData: IRecipe): Promise<IRecipe> {
   try {
     const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData);
     return response.data;
