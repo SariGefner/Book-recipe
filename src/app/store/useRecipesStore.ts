@@ -1,5 +1,6 @@
 import { create } from 'zustand';
-import { IRecipe } from '@/app/types/recipes'
+import { IRecipe } from '@/app/types/recipes';
+
 interface RecipesState {
   recipes: IRecipe[];
   addRecipe: (recipe: IRecipe) => void;

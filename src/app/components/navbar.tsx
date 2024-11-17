@@ -1,27 +1,27 @@
-'use client'
+'use client';
 
 import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation'; // Correctly import usePathname from next/navigation
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 
 const NavBar = () => {
   const [activeTab, setActiveTab] = useState<string>('All Recipes');
-  const pathname = usePathname(); // Use usePathname for current path
+  const pathname = usePathname();
 
-  // Update the active tab based on the pathname
   useEffect(() => {
-    if (pathname === '/favorites') {
+    if (pathname?.includes('/pages/favorites')) {
       setActiveTab('Favorites');
-    } else if (pathname === '/homepage') {
+    } else if (pathname?.includes('/pages/recipes')) {
       setActiveTab('All Recipes');
     }
-  }, [pathname]); // Watch pathname for changes
+  }, [pathname]);
 
   return (
-    <div className="flex border-b border-gray-300">
-      <Link href="/all-recipes">
-        <div
-          className={`px-4 py-2 ${
+    <nav className="w-full">
+      <div className="flex border-b border-gray-300">
+        <Link 
+          href="/pages/recipes"
+          className={`px-4 py-2 cursor-pointer ${
             activeTab === 'All Recipes'
               ? 'text-black border-b-2 border-purple-500'
               : 'text-gray-500'
@@ -29,11 +29,10 @@ const NavBar = () => {
           onClick={() => setActiveTab('All Recipes')}
         >
           All Recipes
-        </div>
-      </Link>
-      <Link href="/favorites">
-        <div
-          className={`px-4 py-2 ${
+        </Link>
+        <Link 
+          href="/pages/favorites"
+          className={`px-4 py-2 cursor-pointer ${
             activeTab === 'Favorites'
               ? 'text-black border-b-2 border-purple-500'
               : 'text-gray-500'
@@ -41,12 +40,10 @@ const NavBar = () => {
           onClick={() => setActiveTab('Favorites')}
         >
           Favorites
-        </div>
-      </Link>
-    </div>
+        </Link>
+      </div>
+    </nav>
   );
 };
 
 export default NavBar;
-
-
