@@ -1,13 +1,15 @@
-import { NextResponse } from 'next/server';
+
+import { NextRequest, NextResponse } from 'next/server';
 import connectDb from '@/app/lib/db/connectDb'; 
 import { Recipe } from '@/app/lib/models/Recipe';
 import { Category } from '@/app/lib/models/Category';
 
-export async function POST(req) {
+export async function POST(req : NextRequest) {
   try {
-    const { image, name, categoryName, ingredients, favorite } = await req.json();
     
-    if (!image || !name || !categoryName || !ingredients || !favorite) {
+    const { image, name, categoryName, ingredients, favorite,preparationInstructions } = await req.json();
+    
+    if (!image || !name || !categoryName || !ingredients || !favorite||!preparationInstructions) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -30,6 +32,7 @@ export async function POST(req) {
       categoryName,  
       ingredients,
       favorite,
+      preparationInstructions
     });
 
     await newRecipe.save();  
@@ -47,7 +50,7 @@ export async function POST(req) {
   } catch (error) {
     console.error('Error creating Recipe:', error);
     return NextResponse.json(
-      { error: 'Failed to create Recipe', details: error.message },
+      { error: 'Failed to create Recipe', details: error},
       { status: 500 }
     );
   }

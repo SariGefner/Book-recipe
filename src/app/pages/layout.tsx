@@ -1,5 +1,6 @@
 
 import type { Metadata } from 'next';
+import NavBar from "@/app/components/navbar";
 
 export const metadata: Metadata = {
   title: 'Create Next App',
@@ -11,10 +12,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const handleSearch = () => {
+    console.log("Search query:");
+  };
+
+  const handleCategoryChange = () => {
+    console.log("Category changed:");
+  };
+
   return (
     <html lang="en">
       <body>
      
+      <NavBar />
         {children}
       </body>
     </html>

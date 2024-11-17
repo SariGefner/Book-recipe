@@ -8,14 +8,5 @@ export interface IRecipe extends Document {
   ingredients: string[];
   favorite: boolean;
   preparationInstructions: string;
-}
-
-export interface IRecipeData {
-  _id: string;
-  image: string;
-  name: string;
-  categoryName: string;
-  ingredients: string[];
-  favorite: boolean;
-  preparationInstructions: string;
+  
 }

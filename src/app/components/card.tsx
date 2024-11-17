@@ -80,29 +80,22 @@
 // export default Card;
 'use client'
 
-import React, { useState } from 'react';
-import Image from 'next/image';
-// import { IRecipe } from '../lib/models/Recipe';  // Adjust path as needed
-import { updateRecipe } from '../services/recipes';
 import { IRecipe } from '../types/recipes';
+import { useState } from 'react';
 import RecipeDetails from './recipeDetails';
-// import { Types } from 'mongoose';
+import { updateRecipe } from '../services/recipes';
 
-// type CardProps = Pick<IRecipe, 'image' | 'name' | 'category' | 'ingredients' | 'favorite' | 'preparationInstructions'>;
-// type CardProps = Pick<IRecipe, 'image' | 'name' | 'ingredients' | 'favorite' | 'preparationInstructions'> & {
-//   category: string | Types.ObjectId;
-//  };
-type CardProps = Pick<IRecipe, 'image' | 'name' | 'ingredients' | 'favorite' | 'preparationInstructions'> & {
-  categoryName: string;  // Use categoryName instead of category
-};
-const Card: React.FC<CardProps> = ({ image, name, categoryName, ingredients, favorite, preparationInstructions }) => {
+
+type RecipeProps = Pick<IRecipe, 'image' | 'name' | 'categoryName' | 'ingredients' | 'favorite' | 'preparationInstructions'>;
+
+const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, favorite, preparationInstructions }) => {
   const [isFavorite, setIsFavorite] = useState(favorite);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const handleFavoriteToggle = async () => {
     try {
-      await updateRecipe(name, !isFavorite);
-      setIsFavorite((prev) => !prev);
+      await updateRecipe(name, !isFavorite); 
+      setIsFavorite((prev) => !prev); 
     } catch (error) {
       console.error("Failed to update favorite status:", error);
     }
@@ -119,9 +112,10 @@ const Card: React.FC<CardProps> = ({ image, name, categoryName, ingredients, fav
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-4 relative">
       <div className="relative h-48 w-full">
-        <Image src={image} alt={name} layout="fill" objectFit="cover" className="rounded-t-lg" />
+        {/* <Image src={image} alt={name} layout="fill" objectFit="cover" className="rounded-t-lg" /> */}
       </div>
       <div className="px-6 py-4">
+    
         <div className="flex justify-between items-center mb-2">
           <h2 className="font-bold text-xl">{name}</h2>
           <button
@@ -141,32 +135,21 @@ const Card: React.FC<CardProps> = ({ image, name, categoryName, ingredients, fav
         </button>
       </div>
 
-      {isPopupOpen &&
-        (
-          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg max-w-md w-full">
-              <RecipeDetails {...{ image, name, categoryName, ingredients, favorite: isFavorite, preparationInstructions }} />
-              <button
-                onClick={handleClosePopup}
-                className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-700"
-              >
-                Close
-              </button>
-            </div>
+      {/* Popup for detailed instructions */}
+      {isPopupOpen && (
+        
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded-lg max-w-md w-full">
+            <RecipeDetails {...{ image, name, categoryName, ingredients, favorite: isFavorite, preparationInstructions }} />
+            <button
+              onClick={handleClosePopup}
+              className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Close
+            </button>
           </div>
-        )
-        // (
-        //   <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-        //     <div className="bg-white p-6 rounded-lg max-w-md w-full">
-        //       <h2 className="text-xl font-bold mb-4">{name}</h2>
-        //       <p>{preparationInstructions}</p>
-        //       <button onClick={handleClosePopup} className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-700">
-        //         Close
-        //       </button>
-        //     </div>
-        //   </div>
-        // )
-      }
+        </div>
+      )}
     </div>
   );
 };
