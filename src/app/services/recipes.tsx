@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { IRecipe } from '@/app/types/recipes';
-const BASE_URL = 'http://localhost:3000/api';
+const BASE_URL = 'http://localhost:3001/api';
 
 
 
