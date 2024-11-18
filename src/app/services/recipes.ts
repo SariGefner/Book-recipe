@@ -56,8 +56,12 @@ export async function updateRecipe(name: string, favorite: boolean): Promise<IRe
 
 export async function addRecipe(recipeData: Partial<IRecipe>): Promise<IRecipe> {
   try {
-    const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData);
-    return response.data;
+    const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData, {
+      headers: { 'Content-Type': 'application/json' },
+  });
+  
+    // const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData);
+    return response.data.recipe;
   } catch (error) {
     console.error('Error adding recipe:', error);
     throw error;

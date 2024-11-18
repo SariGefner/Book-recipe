@@ -12,21 +12,11 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const handleSearch = () => {
-    console.log("Search query:");
-  };
-
-  const handleCategoryChange = () => {
-    console.log("Category changed:");
-  };
 
   return (
-    <html lang="en">
-      <body>
-     
-      <NavBar />
-        {children}
-      </body>
-    </html>
+    <div>
+      <NavBar></NavBar>
+      {children}
+    </div>
   );
 }

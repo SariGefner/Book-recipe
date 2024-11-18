@@ -4,7 +4,7 @@ import CardsList from "@/app/components/cardsList";
 const page = () => {
   return (
     <div>
-     <CardsList favorite={true}/>
+     <CardsList favorite={true}></CardsList>
     </div>
   )
 }
