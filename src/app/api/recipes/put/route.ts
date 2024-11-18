@@ -1,8 +1,8 @@
-import { NextResponse } from 'next/server';
-import connectDb from '@/app/lib/db/connectDb'; 
+import { NextRequest, NextResponse } from 'next/server';
+import connectDb from '@/app/lib/db/connectDb';
 import { Recipe } from '@/app/lib/models/Recipe';
 
-export async function PUT(req) {
+export async function PUT(req: NextRequest) {
   try {
     const { name, favorite } = await req.json();
 
@@ -15,7 +15,7 @@ export async function PUT(req) {
 
     await connectDb();
 
-    const recipeToUpdate = await Recipe.findOne({ name:name });
+    const recipeToUpdate = await Recipe.findOne({ name: name });
     if (!recipeToUpdate) {
       return NextResponse.json(
         { error: 'Recipe not found' },
@@ -34,7 +34,7 @@ export async function PUT(req) {
   } catch (error) {
     console.error('Error updating Recipe:', error);
     return NextResponse.json(
-      { error: 'Failed to update Recipe favorite status', details: error.message },
+      { error: 'Failed to update Recipe favorite status', details: error },
       { status: 500 }
     );
   }
