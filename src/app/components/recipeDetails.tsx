@@ -1,10 +1,11 @@
 'use client'
-import Image from "next/image";
+// import Image from "next/image";
 import { IRecipe } from "../types/recipes";
 
 type RecipeProps = Pick<IRecipe, 'image' | 'name' | 'categoryName' | 'ingredients' | 'favorite' | 'preparationInstructions'>;
 
-const RecipeDetails: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, favorite, preparationInstructions }) => {
+const RecipeDetails: React.FC<RecipeProps> = ({ name, categoryName, ingredients, favorite, preparationInstructions }) => {
+    // const RecipeDetails: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, favorite, preparationInstructions }) => {
 
     return (
         <div>
