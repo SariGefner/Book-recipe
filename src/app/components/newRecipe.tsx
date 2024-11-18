@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 // import { IRecipe } from '../types/recipes';
 import { IRecipe } from '@/app/types/recipes';
 
 import { addRecipe } from '@/app/services/recipes'; // Create this service function for adding a recipe
+import { ICategory } from '../types/category';
+import { fetchAllCategory } from '../services/category';
 
 interface AddRecipeFormProps {
     onClose: () => void;
@@ -12,12 +14,26 @@ interface AddRecipeFormProps {
 }
 
 const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
+    const [categories, setCategories] = useState<ICategory[]>([]);
+    
     const [name, setName] = useState('');
     const [categoryName, setCategoryName] = useState('');
     const [ingredients, setIngredients] = useState<string[]>([]);
     const [image, setImage] = useState('');
     const [preparationInstructions, setPreparationInstructions] = useState('');
     const [favorite, setFavorite] = useState(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await fetchAllCategory();
+                setCategories(data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+        fetchData();
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -52,13 +68,25 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
                         onChange={(e) => setName(e.target.value)}
                         className="w-full mb-4 p-2 border border-gray-300 rounded"
                     />
-                    <input
-                        type="text"
+                    <select
+                        className="w-full mb-4 p-2 border border-gray-300 rounded"
+                        onChange={(e) => setCategoryName(e.target.value)}
+                        defaultValue=""
+                    >
+                        <option value="" disabled>Pick a Category</option>
+                        {categories.map((category, i) => (
+                            <option key={i} value={category.categoryName}>
+                                {category.categoryName}
+                            </option>
+                        ))}
+                    </select>
+                    {/* <input
+                        type="text" 
                         placeholder="Category"
                         value={categoryName}
                         onChange={(e) => setCategoryName(e.target.value)}
                         className="w-full mb-4 p-2 border border-gray-300 rounded"
-                    />
+                    /> */}
                     <input
                         type="text"
                         placeholder="Ingredients (comma separated)"

@@ -1,3 +1,4 @@
+'use clite'
 import { useState, useEffect } from 'react';
 import { fetchAllCategory } from '@/app/services/category';
 import { IRecipe } from '@/app/types/recipes';
@@ -37,7 +38,7 @@ const Header: React.FC<HeaderProps> = ({ recipes, setRecipes, onAddRecipeClick }
             return matchesCategory && matchesSearch;
         });
         setRecipes(filtered)
-    }, [searchQuery, categoryFilter, recipes]);
+    }, [searchQuery, categoryFilter, recipes, setRecipes]);
 
     const onCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedCategory = e.target.value;

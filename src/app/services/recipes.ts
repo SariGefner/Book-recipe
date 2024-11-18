@@ -59,7 +59,7 @@ export async function addRecipe(recipeData: Partial<IRecipe>): Promise<IRecipe> 
     const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData, {
       headers: { 'Content-Type': 'application/json' },
   });
-  
+  console.log('Response:', response); // Add this log to inspect the full response
     // const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData);
     return response.data.recipe;
   } catch (error) {
