@@ -4,7 +4,7 @@ import { useState } from 'react';
 // import { IRecipe } from '../types/recipes';
 import { IRecipe } from '@/app/types/recipes';
 
-import { addRecipe } from '../services/recipes'; // Create this service function for adding a recipe
+import { addRecipe } from '@/app/services/recipes'; // Create this service function for adding a recipe
 
 interface AddRecipeFormProps {
     onClose: () => void;

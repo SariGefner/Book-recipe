@@ -1,9 +1,18 @@
 import { useState, useEffect } from 'react';
 import { fetchAllCategory } from '@/app/services/category';
+import { IRecipe } from '@/app/types/recipes';
+import { ICategory } from '../types/category';
 
-const Header = ({ recipes, setRecipes, onAddRecipeClick }) => {
+// Define the type for the Header component props
+interface HeaderProps {
+    recipes: IRecipe[];
+    setRecipes: React.Dispatch<React.SetStateAction<IRecipe[]>>;
+    onAddRecipeClick: () => void;
+  }
+  
+const Header: React.FC<HeaderProps> = ({ recipes, setRecipes, onAddRecipeClick }) => {
     const [searchQuery, setSearchQuery] = useState('');
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState<ICategory[]>([]);
     const [categoryFilter, setCategoryFilter] = useState("");
 
     useEffect(() => {
@@ -30,12 +39,12 @@ const Header = ({ recipes, setRecipes, onAddRecipeClick }) => {
         setRecipes(filtered)
     }, [searchQuery, categoryFilter, recipes]);
 
-    const onCategoryChange = (e) => {
+    const onCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedCategory = e.target.value;
         setCategoryFilter(selectedCategory);
     };
 
-    const onSearchChange = (e) => {
+    const onSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(e.target.value);
     };
 
