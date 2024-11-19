@@ -1,7 +1,7 @@
-import mongoose, { Document } from 'mongoose';
+import  { Document } from 'mongoose';
 
 export interface IRecipe extends Document {
-  _id: mongoose.Types.ObjectId;
+
   image: string;
   name: string;
   categoryName: string;

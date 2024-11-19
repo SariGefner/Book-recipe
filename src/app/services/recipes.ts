@@ -54,16 +54,22 @@ export async function updateRecipe(name: string, favorite: boolean): Promise<IRe
   }
 }
 
-export async function addRecipe(recipeData: Partial<IRecipe>): Promise<IRecipe> {
+export async function addRecipe(recipeData: Partial<IRecipe>): Promise<object> {
   try {
+    console.log("Sending data:", recipeData);
     const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData, {
       headers: { 'Content-Type': 'application/json' },
-  });
-  console.log('Response:', response); // Add this log to inspect the full response
-    // const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData);
-    return response.data.recipe;
+    });
+    console.log("Server response:", typeof(response.data.recipe));
+    return response.data.recipe ;
   } catch (error) {
-    console.error('Error adding recipe:', error);
+    if (axios.isAxiosError(error)) {
+      console.error("Error response data:", error.response?.data);
+      console.error("Error response status:", error.response?.status);
+    } else {
+      console.error("Unexpected error:", error);
+    }
     throw error;
   }
+  
 }

@@ -17,6 +17,16 @@ const CardsList: React.FC<CardsListProps> = ({ favorite = false }) => {
   const [error, setError] = useState<string | null>(null);
   const [isAddRecipeOpen, setIsAddRecipeOpen] = useState(false);
 
+  const handleAddRecipe = async (newRecipe: object) => {
+    try {
+      // const addedRecipe = await addRecipe(newRecipe);
+      setRecipes((prev) => [...prev,newRecipe  as IRecipe]);
+      setFilter((prev) => [...prev, newRecipe as IRecipe]);
+    } catch (error) {
+      console.error('Error adding recipe:', error);
+    }
+  };
+
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
@@ -40,15 +50,7 @@ const CardsList: React.FC<CardsListProps> = ({ favorite = false }) => {
     fetchRecipes();
   }, [favorite]);
 
-  const handleAddRecipe = async (newRecipe: Omit<IRecipe, '_id'>) => {
-    try {
-      const addedRecipe = await addRecipe(newRecipe);
-      setRecipes((prev) => [...prev, addedRecipe]);
-      setFilter((prev) => [...prev, addedRecipe]);
-    } catch (error) {
-      console.error('Error adding recipe:', error);
-    }
-  };
+
 
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
@@ -66,10 +68,10 @@ const CardsList: React.FC<CardsListProps> = ({ favorite = false }) => {
           onClose={() => setIsAddRecipeOpen(false)}
         />
       )}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {filterRecipes.length > 0 ? (
           filterRecipes.map((recipe) => (
-            <Card key={recipe._id.toString()} {...recipe} />
+            <Card key={recipe.name} {...recipe} />
           ))
         ) : (
           <p>No recipes found.</p>

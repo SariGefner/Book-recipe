@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react';
 // import { IRecipe } from '../types/recipes';
 import { IRecipe } from '@/app/types/recipes';
-
 import { addRecipe } from '@/app/services/recipes'; // Create this service function for adding a recipe
 import { ICategory } from '../types/category';
 import { fetchAllCategory } from '../services/category';
@@ -28,6 +27,8 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
             try {
                 const data = await fetchAllCategory();
                 setCategories(data);
+                console.log(categories);
+                
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -37,39 +38,69 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+    
+        // Find the category by name and extract its ObjectId
+        // const category = categories.find((cat) => cat.categoryName === categoryName)?._id;
+    
+        // if (!category) {
+        //     console.error('Invalid category selected');
+        //     return;
+        // }
+    
         const newRecipe: Partial<IRecipe> = {
             image,
             name,
-            categoryName,
+            categoryName, // Use ObjectId instead of categoryName
             ingredients,
             favorite,
             preparationInstructions,
         };
         console.log('Payload being sent:', newRecipe);
-
+    
         try {
-            const addedRecipe = await addRecipe(newRecipe); // Make sure to implement this service
-            onAdd(addedRecipe); // Pass the new recipe to the parent component
-            onClose(); // Close the form after successful submission
+            const addedRecipe = await addRecipe(newRecipe); // Send to the API
+            onAdd(addedRecipe);
+            onClose();
         } catch (error) {
             console.error('Error adding recipe:', error);
         }
     };
+    
+    // const handleSubmit = async (e: React.FormEvent) => {
+    //     e.preventDefault();
+
+    //     const newRecipe: Partial<IRecipe> = {
+    //         image,
+    //         name,
+    //         categoryName,
+    //         ingredients,
+    //         favorite,
+    //         preparationInstructions,
+    //     };
+        // console.log('Payload being sent:', newRecipe);
+
+    //     try {
+    //         const addedRecipe = await addRecipe(newRecipe); // Make sure to implement this service
+    //         onAdd(addedRecipe); // Pass the new recipe to the parent component
+    //         onClose(); // Close the form after successful submission
+    //     } catch (error) {
+    //         console.error('Error adding recipe:', error);
+    //     }
+    // };
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-            <div className="bg-white p-6 rounded-lg max-w-md w-full">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="w-full max-w-md p-6 bg-white rounded-lg">
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
                         placeholder="Recipe Name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        className="w-full mb-4 p-2 border border-gray-300 rounded"
+                        className="w-full p-2 mb-4 border border-gray-300 rounded"
                     />
                     <select
-                        className="w-full mb-4 p-2 border border-gray-300 rounded"
+                        className="w-full p-2 mb-4 border border-gray-300 rounded"
                         onChange={(e) => setCategoryName(e.target.value)}
                         defaultValue=""
                     >
@@ -85,27 +116,27 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
                         placeholder="Category"
                         value={categoryName}
                         onChange={(e) => setCategoryName(e.target.value)}
-                        className="w-full mb-4 p-2 border border-gray-300 rounded"
+                        className="w-full p-2 mb-4 border border-gray-300 rounded"
                     /> */}
                     <input
                         type="text"
                         placeholder="Ingredients (comma separated)"
                         value={ingredients.join(', ')}
                         onChange={(e) => setIngredients(e.target.value.split(',').map((item) => item.trim()))}
-                        className="w-full mb-4 p-2 border border-gray-300 rounded"
+                        className="w-full p-2 mb-4 border border-gray-300 rounded"
                     />
                     <input
                         type="text"
                         placeholder="Image URL"
                         value={image}
                         onChange={(e) => setImage(e.target.value)}
-                        className="w-full mb-4 p-2 border border-gray-300 rounded"
+                        className="w-full p-2 mb-4 border border-gray-300 rounded"
                     />
                     <textarea
                         placeholder="Preparation Instructions"
                         value={preparationInstructions}
                         onChange={(e) => setPreparationInstructions(e.target.value)}
-                        className="w-full mb-4 p-2 border border-gray-300 rounded"
+                        className="w-full p-2 mb-4 border border-gray-300 rounded"
                     />
                     <label className="flex items-center mb-4">
                         <input
@@ -120,13 +151,13 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
                         <button
                             type="button"
                             onClick={onClose}
-                            className="bg-gray-500 text-white px-4 py-2 rounded"
+                            className="px-4 py-2 text-white bg-gray-500 rounded"
                         >
                             Cancel
                         </button>
                         <button
                             type="submit"
-                            className="bg-blue-500 text-white px-4 py-2 rounded"
+                            className="px-4 py-2 text-white bg-blue-500 rounded"
                         >
                             Add Recipe
                         </button>
