@@ -12,9 +12,7 @@ export async function PUT(req: NextRequest) {
         { status: 400 }
       );
     }
-
     await connectDb();
-
     const recipeToUpdate = await Recipe.findOne({ name: name });
     if (!recipeToUpdate) {
       return NextResponse.json(
@@ -22,11 +20,8 @@ export async function PUT(req: NextRequest) {
         { status: 404 }
       );
     }
-
-
     recipeToUpdate.favorite = favorite;
     const updatedRecipe = await recipeToUpdate.save();
-
     return NextResponse.json(
       { message: 'Recipe favorite status updated successfully', recipe: updatedRecipe },
       { status: 200 }
