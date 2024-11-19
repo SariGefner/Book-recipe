@@ -1,16 +1,12 @@
-
 import { NextResponse } from 'next/server';
 import connectDb from '@/app/lib/db/connectDb';
 import { Category } from '@/app/lib/models/Category';
 
-
 export async function GET() {
   try {
     await connectDb();
-
     const categories = await Category.find().select("categoryName");
     console.log(categories);
-
     if (!categories || categories.length === 0) {
       return NextResponse.json(
         { message: 'No categories found' },
