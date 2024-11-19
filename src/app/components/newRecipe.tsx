@@ -59,7 +59,7 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
     
         try {
             const addedRecipe = await addRecipe(newRecipe); // Send to the API
-            onAdd(addedRecipe);
+            onAdd(addedRecipe as IRecipe);
             onClose();
         } catch (error) {
             console.error('Error adding recipe:', error);

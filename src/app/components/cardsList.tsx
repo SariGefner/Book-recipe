@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { IRecipe } from '@/app/types/recipes';
 import Card from './card';
-import { fetchAllRecipes, addRecipe } from '../services/recipes';
+import { fetchAllRecipes } from '../services/recipes';
 import Header from "@/app/components/header";
 import NewRecips from './newRecipe';
 
