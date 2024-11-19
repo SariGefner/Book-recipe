@@ -3,10 +3,6 @@ import { IRecipe } from '@/app/types/recipes';
 // const BASE_URL = 'http://localhost:3000/api';
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
-
-
-
-
 export async function fetchAllRecipes(): Promise<IRecipe[]> {
   try {
     const response = await axios.get(`${BASE_URL}/recipes/get/`);
@@ -24,7 +20,7 @@ export async function fetchRecipesByCategory(categoryName: string): Promise<IRec
   try {
     const response = await axios.get(`${BASE_URL}/category/get/${categoryName}`);
     console.log(response.data);
-    
+
     return response.data;
   } catch (error) {
     console.error(`Error fetching recipes for category ${categoryName}:`, error);
@@ -62,8 +58,8 @@ export async function addRecipe(recipeData: Partial<IRecipe>): Promise<object> {
     const response = await axios.post(`${BASE_URL}/recipes/post`, recipeData, {
       headers: { 'Content-Type': 'application/json' },
     });
-    console.log("Server response:", typeof(response.data.recipe));
-    return response.data.recipe ;
+    console.log("Server response:", typeof (response.data.recipe));
+    return response.data.recipe;
   } catch (error) {
     if (axios.isAxiosError(error)) {
       console.error("Error response data:", error.response?.data);
@@ -73,5 +69,5 @@ export async function addRecipe(recipeData: Partial<IRecipe>): Promise<object> {
     }
     throw error;
   }
-  
+
 }
