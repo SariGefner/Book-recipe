@@ -20,11 +20,10 @@ const NavBar = () => {
     <div className="flex border-b border-gray-300">
       <Link href="/pages/recipes">
         <div
-          className={`px-4 py-2 ${
-            activeTab === 'All Recipes'
+          className={`px-4 py-2 ${activeTab === 'All Recipes'
               ? 'text-black border-b-2 border-purple-500'
               : 'text-gray-500'
-          }`}
+            }`}
           onClick={() => setActiveTab('All Recipes')}
         >
           All Recipes
@@ -32,11 +31,10 @@ const NavBar = () => {
       </Link>
       <Link href="/pages/favorites">
         <div
-          className={`px-4 py-2 ${
-            activeTab === 'Favorites'
+          className={`px-4 py-2 ${activeTab === 'Favorites'
               ? 'text-black border-b-2 border-purple-500'
               : 'text-gray-500'
-          }`}
+            }`}
           onClick={() => setActiveTab('Favorites')}
         >
           Favorites

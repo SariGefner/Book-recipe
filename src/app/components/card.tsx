@@ -5,7 +5,6 @@ import { useState } from 'react';
 import RecipeDetails from './recipeDetails';
 import { updateRecipe } from '../services/recipes';
 
-
 type RecipeProps = Pick<IRecipe, 'image' | 'name' | 'categoryName' | 'ingredients' | 'favorite' | 'preparationInstructions'>;
 
 const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, favorite, preparationInstructions }) => {
@@ -14,8 +13,8 @@ const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, f
 
   const handleFavoriteToggle = async () => {
     try {
-      await updateRecipe(name, !isFavorite); 
-      setIsFavorite((prev) => !prev); 
+      await updateRecipe(name, !isFavorite);
+      setIsFavorite((prev) => !prev);
     } catch (error) {
       console.error("Failed to update favorite status:", error);
     }
@@ -30,14 +29,14 @@ const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, f
   };
 
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-4 relative">
-      <div className="relative h-48 w-full">
+    <div className="relative max-w-sm p-4 overflow-hidden bg-white rounded shadow-lg">
+      <div className="relative w-full h-48">
         {/* <Image src={image} alt={name} layout="fill" objectFit="cover" className="rounded-t-lg" /> */}
       </div>
       <div className="px-6 py-4">
-    
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="font-bold text-xl">{name}</h2>
+
+        <div className="flex items-center justify-between mb-2">
+          <h2 className="text-xl font-bold">{name}</h2>
           <button
             onClick={handleFavoriteToggle}
             className={`bg-blue-500 text-white px-3 py-1 rounded ${isFavorite ? 'bg-red-500' : 'bg-blue-500'}`}
@@ -45,25 +44,25 @@ const Card: React.FC<RecipeProps> = ({ image, name, categoryName, ingredients, f
             {isFavorite ? '💗' : '💗'}
           </button>
         </div>
-        <p className="text-gray-600 mb-2">Category ID: {categoryName.toString()}</p>
-        <p className="text-gray-700 text-sm mb-2">Ingredients: {ingredients.join(', ')}</p>
-        <p className="text-gray-700 text-sm mb-2">
+        <p className="mb-2 text-gray-600">Category ID: {categoryName.toString()}</p>
+        <p className="mb-2 text-sm text-gray-700">Ingredients: {ingredients.join(', ')}</p>
+        <p className="mb-2 text-sm text-gray-700">
           {preparationInstructions.slice(0, 100)}...
         </p>
-        <button onClick={handleReadMore} className="text-blue-500 hover:underline mb-4">
+        <button onClick={handleReadMore} className="mb-4 text-blue-500 hover:underline">
           Read More
         </button>
       </div>
 
       {/* Popup for detailed instructions */}
       {isPopupOpen && (
-        
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded-lg max-w-md w-full">
+
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="w-full max-w-md p-6 bg-white rounded-lg">
             <RecipeDetails {...{ image, name, categoryName, ingredients, favorite: isFavorite, preparationInstructions }} />
             <button
               onClick={handleClosePopup}
-              className="text-white bg-blue-500 px-4 py-2 rounded hover:bg-blue-700"
+              className="px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700"
             >
               Close
             </button>

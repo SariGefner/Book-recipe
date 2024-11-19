@@ -20,7 +20,7 @@ const CardsList: React.FC<CardsListProps> = ({ favorite = false }) => {
   const handleAddRecipe = async (newRecipe: object) => {
     try {
       // const addedRecipe = await addRecipe(newRecipe);
-      setRecipes((prev) => [...prev,newRecipe  as IRecipe]);
+      setRecipes((prev) => [...prev, newRecipe as IRecipe]);
       setFilter((prev) => [...prev, newRecipe as IRecipe]);
     } catch (error) {
       console.error('Error adding recipe:', error);

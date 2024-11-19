@@ -14,7 +14,7 @@ interface AddRecipeFormProps {
 
 const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
     const [categories, setCategories] = useState<ICategory[]>([]);
-    
+
     const [name, setName] = useState('');
     const [categoryName, setCategoryName] = useState('');
     const [ingredients, setIngredients] = useState<string[]>([]);
@@ -28,7 +28,7 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
                 const data = await fetchAllCategory();
                 setCategories(data);
                 console.log(categories);
-                
+
             } catch (error) {
                 console.error('Error fetching categories:', error);
             }
@@ -38,15 +38,7 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-    
-        // Find the category by name and extract its ObjectId
-        // const category = categories.find((cat) => cat.categoryName === categoryName)?._id;
-    
-        // if (!category) {
-        //     console.error('Invalid category selected');
-        //     return;
-        // }
-    
+
         const newRecipe: Partial<IRecipe> = {
             image,
             name,
@@ -56,7 +48,7 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
             preparationInstructions,
         };
         console.log('Payload being sent:', newRecipe);
-    
+
         try {
             const addedRecipe = await addRecipe(newRecipe); // Send to the API
             onAdd(addedRecipe as IRecipe);
@@ -65,28 +57,6 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
             console.error('Error adding recipe:', error);
         }
     };
-    
-    // const handleSubmit = async (e: React.FormEvent) => {
-    //     e.preventDefault();
-
-    //     const newRecipe: Partial<IRecipe> = {
-    //         image,
-    //         name,
-    //         categoryName,
-    //         ingredients,
-    //         favorite,
-    //         preparationInstructions,
-    //     };
-        // console.log('Payload being sent:', newRecipe);
-
-    //     try {
-    //         const addedRecipe = await addRecipe(newRecipe); // Make sure to implement this service
-    //         onAdd(addedRecipe); // Pass the new recipe to the parent component
-    //         onClose(); // Close the form after successful submission
-    //     } catch (error) {
-    //         console.error('Error adding recipe:', error);
-    //     }
-    // };
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
@@ -111,13 +81,6 @@ const NewRecips: React.FC<AddRecipeFormProps> = ({ onClose, onAdd }) => {
                             </option>
                         ))}
                     </select>
-                    {/* <input
-                        type="text" 
-                        placeholder="Category"
-                        value={categoryName}
-                        onChange={(e) => setCategoryName(e.target.value)}
-                        className="w-full p-2 mb-4 border border-gray-300 rounded"
-                    /> */}
                     <input
                         type="text"
                         placeholder="Ingredients (comma separated)"

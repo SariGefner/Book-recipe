@@ -9,8 +9,8 @@ interface HeaderProps {
     recipes: IRecipe[];
     setRecipes: React.Dispatch<React.SetStateAction<IRecipe[]>>;
     onAddRecipeClick: () => void;
-  }
-  
+}
+
 const Header: React.FC<HeaderProps> = ({ recipes, setRecipes, onAddRecipeClick }) => {
     const [searchQuery, setSearchQuery] = useState('');
     const [categories, setCategories] = useState<ICategory[]>([]);
@@ -51,10 +51,10 @@ const Header: React.FC<HeaderProps> = ({ recipes, setRecipes, onAddRecipeClick }
 
     return (
         <div className="w-full px-4 py-6">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
                 <h1 className="text-2xl font-bold text-gray-800">Recipes</h1>
 
-                <div className="flex flex-1 items-center gap-4 max-w-2xl">
+                <div className="flex items-center flex-1 max-w-2xl gap-4">
                     <select
                         className="px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-700 min-w-[150px] focus:outline-none focus:ring-2 focus:ring-purple-500"
                         onChange={onCategoryChange}
@@ -80,7 +80,7 @@ const Header: React.FC<HeaderProps> = ({ recipes, setRecipes, onAddRecipeClick }
                 {/* Add Recipe Button */}
                 <button
                     onClick={onAddRecipeClick}
-                    className="bg-green-500 text-white px-4 py-2 rounded"
+                    className="px-4 py-2 text-white bg-green-500 rounded"
                 >
                     Add Recipe
                 </button>
